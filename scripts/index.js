@@ -1,75 +1,127 @@
-// start point 
-document.addEventListener("DOMContentLoaded", () => {
-    let txt = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    // --- upper case ---
-    // console.log(
-    //     txt.toUpperCase()
+// functions
+function testDeclareFunction(a, b = 2) {
+    const c = a + b
+    if (c > 4) {
+        return "+"
+    } else {
+        return "-"
+    }
+}
+
+function objects() {
+    let someObj = {
+        first_name: "John",
+        last_name: "Doe",
+        age: 21
+    };
+    console.log("NAME:", someObj.first_name);
+    someObj.city = "Dro";
+    delete someObj.age;
+    someObj = {};
+    console.log("T", someObj);
+}
+
+const arrFunction = (text) => {
+    console.log("Test Func", text)
+}
+
+const conditionals = () => {
+    // let age = 4;
+    // if (age >= 18) {
+    //     console.log("adult");
+    // } else if (age >= 0 && age < 18){
+    //     console.log(
+    //         "child", age 
+    //     )
+    // }
+    // // ternal condition
+    // age >= 18 ? console.log("adult") : console.log("child");
+
+    // const offline = 0;
+    // if (offline){
+    //     console.log("test off");
+    // }
+
+    // let test = 10;
+
+    // test ? (
+    //     console.log(test),
+    //     console.log("test")
+    // ) : (
+    //     console.log(test)
     // )
 
-    // --- lower case ---
-    // console.log("__lower case__", txt.toLowerCase())
+    // let test = true;
+    // !test && console.log("test &&");
 
-    // // --- replace content ---
-    // console.log("___ replace ____", txt.replace("i", "o"))
-    // console.log("___ replace ALL ____", txt.replaceAll("i", "o"))
+    // !test || console.log("test ||");
 
-    // --- length txt ---
-    // console.log("LENGTH", txt.replaceAll(" ", '').length)
+    // const expr = 'Papayas';
+    // switch (expr) {
+    //     case 'Oranges':
+    //         console.log('Oranges are $0.59 a pound.');
+    //         break;
+    //     case 'Mangoes':
+    //     case 'Papayas':
+    //         console.log('Mangoes and papayas are $2.79 a pound.');
+    //         // Expected output: "Mangoes and papayas are $2.79 a pound."
+    //         break;
+    //     default:
+    //         console.log(`Sorry, we are out of ${expr}.`);
+    // }
 
-    // --- strip & split
-    // console.log(txt.split(" "))
+}
 
-    // --- First and Last Letters
-    // console.log("Firts Char - ", txt[0])
-    // console.log("Last Char - ", txt[txt.length - 1])
 
-    // --- Reverse ---
-    // let someTxt = "Lorem";
-    // let reverseTxt;
-    // reverseTxt = someTxt.split("").reverse().join("");
-    // console.log("reverse", reverseTxt)
+const loops = () => {
+    // let flag = true;
+    // let counter = 1;
+    // while (flag) {
+    //     if (counter >= 5){
+    //         break;
+    //     }
+    //     counter++;
+    // }
+    // console.log("test",counter)
 
-    // --- Personal ---
-    // let n = "John"
-    // let s = "Doe"
-    // let p = "Ostin"
+    let arrValues = [1, "test", "y", false];
 
-    // console.log(`${s} ${n[0]}. ${p[0]}`)
+    // for (let i = 0; i < arrValues.length; i++){
+    //     console.log(arrValues[i])
+    // }
 
-    // console.log(2**2)
-    // console.log("4" === 4)
-
-    // let array = [1, "test", true, null]
-    // // add
-    // array.push("test1")
-    // array.unshift("test2")
-    // console.log(array)
-    // // del
-    // array.pop()
-    // console.log(array)
-    // array.shift()
-    // console.log(array)
-    
-    // // let index = array.indexOf("test")
-    // // array.splice(index, 1)
-    // let filteredArr = array.filter((e)=>{
-    //     return e != "test"
+    // arrValues.forEach((item, index) => {
+    //     if (item) {
+    //         item += 2;
+    //     }
+    //     console.log(item, index)
     // })
-    // console.log(filteredArr)
 
-    let a, b, c, d
-    // primitive
-    a = 1
-    b = a
-    a = a + 1
+    // arrValues.map((item, index) => {
+    //     if (item) {
+    //         item += 2;
+    //     }
+    //     console.log(item, index)
+    // })
 
-    // complex
-    c = [1]
-    d = [...c]
-    c[0] = c[0] + 1
-
-    //output
-    console.log(a, b)
-    console.log(c, d)
+    let age = [12, 18, 25, 45, 7];
+    // short form
+    // let adultList = age.filter(item => item >= 18);
+    // full form
+    // let adultList = age.filter((item) => {
+    //     if (item >= 18) {
+    //         return item
+    //     }
+    // })
+    // console.log(adultList);
     
+}
+
+// start point 
+document.addEventListener("DOMContentLoaded", () => {
+    // objects();
+    // const test = testDeclareFunction(2);
+    // arrFunction("Hello!!");
+    // conditionals();
+    loops();
 })
