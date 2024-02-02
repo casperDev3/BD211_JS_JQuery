@@ -38,8 +38,12 @@ class Form{
             formData.append("files", file)
         })
         this.FIRST_NAME.addEventListener("input", (e)=>{
-            // console.log(e.target.value);
-            this.SHOW_NAME.innerHTML = e.target.value;
+            if (e.target.value == ''){
+                this.SHOW_NAME.innerHTML = "John / Jane";
+            }else{
+                this.SHOW_NAME.innerHTML = e.target.value
+            }
+            
         })
     }
     #getDataFromFields(){
