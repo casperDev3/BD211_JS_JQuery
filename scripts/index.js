@@ -1,11 +1,50 @@
 class Products {
+    #BASE_URL = "https://fakestoreapi.com"
     async getAllProducts() {
-        const BASE_URL = 'https://fakestoreapi.com';
         const ENDPOINT = '/products'
-        let products = await fetch(BASE_URL + ENDPOINT)
+        let products = await fetch(this.#BASE_URL + ENDPOINT)
             .then(res => res.json())
             .then((json) => { return json })
         return products
+    }
+    async addNewProduct(){
+        await fetch(`${this.#BASE_URL}/products`,{
+            method:"POST",
+            body:JSON.stringify(
+                {
+                    title: 'test product',
+                    price: 13.5,
+                    description: 'lorem ipsum set',
+                    image: 'https://i.pravatar.cc',
+                    category: 'electronic'
+                }
+            )
+        })
+            .then(res=>res.json())
+            .then(json=>console.log("Add New Product", json))
+    }
+    async updateProduct(id = 7){
+        await fetch(`${this.#BASE_URL}/products/${id}`,{
+            method:"PUT",
+            body:JSON.stringify(
+                {
+                    title: 'test product',
+                    price: 13.5,
+                    description: 'lorem ipsum set',
+                    image: 'https://i.pravatar.cc',
+                    category: 'electronic'
+                }
+            )
+        })
+            .then(res=>res.json())
+            .then(json=>console.log("Update Product", json))
+    }
+    async deleteProduct(id = 6){
+        await fetch(`${this.#BASE_URL}/products/${id}`,{
+            method:"DELETE"
+        })
+            .then(res=>res.json())
+            .then(json=>console.log("DELETE", json))
     }
     displayProducts(products){
         let html = '';
@@ -63,6 +102,7 @@ class Products {
         // set HTML in area
         productsArea.innerHTML = html;
     }
+
 }
 //start point
 document.addEventListener("DOMContentLoaded", async () => {
@@ -71,4 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // use
     const products = await p.getAllProducts();
     p.displayProducts(products);
+    p.addNewProduct();
+    p.updateProduct();
+    p.deleteProduct();
 })
