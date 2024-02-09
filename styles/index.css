@@ -119,8 +119,8 @@ header>a {
     justify-content: space-between;
 }
 
-#hero__grid_filterBTN svg,
-#hero__grid_sortBy svg {
+#hero__grid_filterBTN img,
+#hero__grid_sortBy img {
     margin-right: 24px;
 }
 
@@ -177,6 +177,7 @@ header>a {
 
 .grid__item {
     padding: 20px 16px;
+    border: 2px solid red;
 }
 
 .grid__item>div:nth-child(1) {
@@ -326,7 +327,7 @@ header>a {
     margin-bottom: 22px;
 }
 
-.filter__price>div:nth-child(2) svg {
+.filter__price>div:nth-child(2) img {
     margin: 0 16px;
 }
 
@@ -551,6 +552,11 @@ footer>svg {}
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.grid__item_img{
+    height: 214px;
+    margin-bottom: 10px;
 }
 
 footer{
