@@ -102,7 +102,7 @@ class Products {
                                 <p>${e.price} грн</p>
                                 <p>В наявності</p>
                             </div>
-                            <button>
+                            <button onclick="c.addToCart(${e.id})">
                                 <svg width="26.999817" height="25.649597" viewBox="0 0 26.9998 25.6496" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <defs />
@@ -128,8 +128,10 @@ class Products {
         // set HTML in area
         productsArea.innerHTML = html;
     }
-
 }
+
+
+
 //start point
 document.addEventListener("DOMContentLoaded", async () => {
     // init

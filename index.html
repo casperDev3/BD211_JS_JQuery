@@ -16,6 +16,10 @@
 </head>
 
 <body>
+    <script src="/scripts/cart.js"></script>
+    <script>
+        let c = new Cart();
+    </script>
     <header class="container">
         <h1 class="header__logo">
             LOGO
@@ -49,6 +53,7 @@
                 </li>
             </ul>
         </nav>
+        <div id="cart_counter"></div>
         <a href="#">Телефонувати</a>
     </header>
     <main>
@@ -57,7 +62,7 @@
                 <h1>Гранітні мийки</h1>
                 <p>23 товара</p>
             </div> -->
-            
+
             <div class="hero__grid container" id="products_area">
                 <div class="spinner-grow text-danger" role="status">
                     <span class="visually-hidden">Loading...</span>
