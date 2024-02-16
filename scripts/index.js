@@ -5,12 +5,38 @@ class Products {
         let products = await fetch(this.#BASE_URL + ENDPOINT)
             .then(res => res.json())
             .then((json) => { return json })
+        this.useLocalStorage("create", products)
+        this.useLocalStorage("delete")
         return products
     }
-    async addNewProduct(){
-        await fetch(`${this.#BASE_URL}/products`,{
-            method:"POST",
-            body:JSON.stringify(
+    useLocalStorage(type, data = null) {
+        if (type == "create") {
+            // create 
+            const dataForLS = JSON.stringify(data)
+            localStorage.setItem("products", dataForLS)
+            localStorage.setItem("products_clone", dataForLS)
+            console.log("Created")
+        } else if(type == "read"){
+            // read
+            const data = JSON.parse(localStorage.getItem("products"))
+            console.log("__data", data)
+        } else if(type == "update"){
+            // 1. Load from LS
+            let data = JSON.parse(localStorage.getItem("products"))
+            // 2. Some modifications
+            let newData = data[3]
+            // 3. Write new data to LS
+            localStorage.setItem("products", JSON.stringify(newData))
+        } else if (type == "delete") {
+            // localStorage.removeItem("products")
+            console.log("deleted")
+            // localStorage.clear() // clear all 
+        }
+    }
+    async addNewProduct() {
+        await fetch(`${this.#BASE_URL}/products`, {
+            method: "POST",
+            body: JSON.stringify(
                 {
                     title: 'test product',
                     price: 13.5,
@@ -20,13 +46,13 @@ class Products {
                 }
             )
         })
-            .then(res=>res.json())
-            .then(json=>console.log("Add New Product", json))
+            .then(res => res.json())
+            .then(json => console.log("Add New Product", json))
     }
-    async updateProduct(id = 7){
-        await fetch(`${this.#BASE_URL}/products/${id}`,{
-            method:"PUT",
-            body:JSON.stringify(
+    async updateProduct(id = 7) {
+        await fetch(`${this.#BASE_URL}/products/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(
                 {
                     title: 'test product',
                     price: 13.5,
@@ -36,20 +62,20 @@ class Products {
                 }
             )
         })
-            .then(res=>res.json())
-            .then(json=>console.log("Update Product", json))
+            .then(res => res.json())
+            .then(json => console.log("Update Product", json))
     }
-    async deleteProduct(id = 6){
-        await fetch(`${this.#BASE_URL}/products/${id}`,{
-            method:"DELETE"
+    async deleteProduct(id = 6) {
+        await fetch(`${this.#BASE_URL}/products/${id}`, {
+            method: "DELETE"
         })
-            .then(res=>res.json())
-            .then(json=>console.log("DELETE", json))
+            .then(res => res.json())
+            .then(json => console.log("DELETE", json))
     }
-    displayProducts(products){
+    displayProducts(products) {
         let html = '';
         // generate HTML
-        products.forEach((e)=>{
+        products.forEach((e) => {
             html += `<!-- item -->
             <a href="#">
                 <div class="grid__item">
