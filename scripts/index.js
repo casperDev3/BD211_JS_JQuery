@@ -15,11 +15,9 @@ class Products {
             const dataForLS = JSON.stringify(data)
             localStorage.setItem("products", dataForLS)
             localStorage.setItem("products_clone", dataForLS)
-            console.log("Created")
         } else if(type == "read"){
             // read
             const data = JSON.parse(localStorage.getItem("products"))
-            console.log("__data", data)
         } else if(type == "update"){
             // 1. Load from LS
             let data = JSON.parse(localStorage.getItem("products"))
@@ -29,7 +27,7 @@ class Products {
             localStorage.setItem("products", JSON.stringify(newData))
         } else if (type == "delete") {
             // localStorage.removeItem("products")
-            console.log("deleted")
+    
             // localStorage.clear() // clear all 
         }
     }
@@ -47,7 +45,7 @@ class Products {
             )
         })
             .then(res => res.json())
-            .then(json => console.log("Add New Product", json))
+            .then(json =>  json)
     }
     async updateProduct(id = 7) {
         await fetch(`${this.#BASE_URL}/products/${id}`, {
@@ -63,14 +61,14 @@ class Products {
             )
         })
             .then(res => res.json())
-            .then(json => console.log("Update Product", json))
+            .then(json => json)
     }
     async deleteProduct(id = 6) {
         await fetch(`${this.#BASE_URL}/products/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
-            .then(json => console.log("DELETE", json))
+            .then(json =>  json)
     }
     displayProducts(products) {
         let html = '';
