@@ -1,80 +1,77 @@
 class Products {
-    #BASE_URL = "https://fakestoreapi.com"
-    async getAllProducts() {
-        const ENDPOINT = '/products'
-        let products = await fetch(this.#BASE_URL + ENDPOINT)
-            .then(res => res.json())
-            .then((json) => { return json })
-        this.useLocalStorage("create", products)
-        this.useLocalStorage("delete")
-        return products
+  #BASE_URL = "https://fakestoreapi.com";
+  async getAllProducts() {
+    const ENDPOINT = "/products";
+    let products = await fetch(this.#BASE_URL + ENDPOINT)
+      .then((res) => res.json())
+      .then((json) => {
+        return json;
+      });
+    this.useLocalStorage("create", products);
+    this.useLocalStorage("delete");
+    return products;
+  }
+  useLocalStorage(type, data = null) {
+    if (type == "create") {
+      // create
+      const dataForLS = JSON.stringify(data);
+      localStorage.setItem("products", dataForLS);
+      localStorage.setItem("products_clone", dataForLS);
+    } else if (type == "read") {
+      // read
+      const data = JSON.parse(localStorage.getItem("products"));
+    } else if (type == "update") {
+      // 1. Load from LS
+      let data = JSON.parse(localStorage.getItem("products"));
+      // 2. Some modifications
+      let newData = data[3];
+      // 3. Write new data to LS
+      localStorage.setItem("products", JSON.stringify(newData));
+    } else if (type == "delete") {
+      // localStorage.removeItem("products")
+      // localStorage.clear() // clear all
     }
-    useLocalStorage(type, data = null) {
-        if (type == "create") {
-            // create 
-            const dataForLS = JSON.stringify(data)
-            localStorage.setItem("products", dataForLS)
-            localStorage.setItem("products_clone", dataForLS)
-        } else if(type == "read"){
-            // read
-            const data = JSON.parse(localStorage.getItem("products"))
-        } else if(type == "update"){
-            // 1. Load from LS
-            let data = JSON.parse(localStorage.getItem("products"))
-            // 2. Some modifications
-            let newData = data[3]
-            // 3. Write new data to LS
-            localStorage.setItem("products", JSON.stringify(newData))
-        } else if (type == "delete") {
-            // localStorage.removeItem("products")
-    
-            // localStorage.clear() // clear all 
-        }
-    }
-    async addNewProduct() {
-        await fetch(`${this.#BASE_URL}/products`, {
-            method: "POST",
-            body: JSON.stringify(
-                {
-                    title: 'test product',
-                    price: 13.5,
-                    description: 'lorem ipsum set',
-                    image: 'https://i.pravatar.cc',
-                    category: 'electronic'
-                }
-            )
-        })
-            .then(res => res.json())
-            .then(json =>  json)
-    }
-    async updateProduct(id = 7) {
-        await fetch(`${this.#BASE_URL}/products/${id}`, {
-            method: "PUT",
-            body: JSON.stringify(
-                {
-                    title: 'test product',
-                    price: 13.5,
-                    description: 'lorem ipsum set',
-                    image: 'https://i.pravatar.cc',
-                    category: 'electronic'
-                }
-            )
-        })
-            .then(res => res.json())
-            .then(json => json)
-    }
-    async deleteProduct(id = 6) {
-        await fetch(`${this.#BASE_URL}/products/${id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(json =>  json)
-    }
-    displayProducts(products) {
-        let html = '';
-        // generate HTML
-        products.forEach((e) => {
-            html += `<!-- item -->
+  }
+  async addNewProduct() {
+    await fetch(`${this.#BASE_URL}/products`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: "test product",
+        price: 13.5,
+        description: "lorem ipsum set",
+        image: "https://i.pravatar.cc",
+        category: "electronic",
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => json);
+  }
+  async updateProduct(id = 7) {
+    await fetch(`${this.#BASE_URL}/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: "test product",
+        price: 13.5,
+        description: "lorem ipsum set",
+        image: "https://i.pravatar.cc",
+        category: "electronic",
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => json);
+  }
+  async deleteProduct(id = 6) {
+    await fetch(`${this.#BASE_URL}/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((json) => json);
+  }
+  displayProducts(products) {
+    let html = "";
+    // generate HTML
+    products.forEach((e) => {
+      html += `<!-- item -->
             <a href="#">
                 <div class="grid__item">
                     <div>
@@ -120,24 +117,45 @@ class Products {
                 </div>
             </a>
             <!-- /item -->`;
-        })
-        // get area for products
-        let productsArea = document.querySelector("#products_area");
-        // set HTML in area
-        productsArea.innerHTML = html;
-    }
+    });
+    // get area for products
+    let productsArea = document.querySelector("#products_area");
+    // set HTML in area
+    productsArea.innerHTML = html;
+  }
 }
 
+function isLogin() {
+  //! get jwt from LS
+  const JWT = localStorage.getItem("jwt");
+  const PATCH = window.location.pathname;
+  if (JWT && PATCH != "/") {
+    window.open("/", "_self");
+  } else if (JWT && PATCH == "/") {
+    return;
+  } else {
+    window.open("/login.html", "_self");
+  }
+}
 
+function LogOut() {
+  const LOG_OUT_BTN = document.querySelector("#logout");
+  LOG_OUT_BTN.addEventListener("click", () => {
+    localStorage.removeItem("jwt");
+    isLogin();
+  });
+}
 
 //start point
 document.addEventListener("DOMContentLoaded", async () => {
-    // init
-    const p = new Products(); // p - products
-    // use
-    const products = await p.getAllProducts();
-    p.displayProducts(products);
-    p.addNewProduct();
-    p.updateProduct();
-    p.deleteProduct();
-})
+  // init
+  LogOut();
+  const p = new Products(); // p - products
+  isLogin();
+  // use
+  const products = await p.getAllProducts();
+  p.displayProducts(products);
+  p.addNewProduct();
+  p.updateProduct();
+  p.deleteProduct();
+});
